@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Kayrunm\FluentRrule;
 
+use DateTimeImmutable;
 use DateTimeInterface;
-use InvalidArgumentException;
+use DateTimeZone;
 
 class Schedule
 {
     private Frequency $frequency;
-    private ?DateTimeInterface $until = null;
+    private ?DateTimeImmutable $until = null;
 
     public function __construct(Frequency $frequency)
     {
@@ -20,22 +21,17 @@ class Schedule
     /** @return $this */
     public function until(DateTimeInterface $until): static
     {
-        // todo: handle non-UTC times
-        if ($until->getTimezone()->getName() !== 'UTC') {
-            throw new InvalidArgumentException('Must be UTC for now');
-        }
-
-        $this->until = $until;
+        $this->until = DateTimeImmutable::createFromInterface($until);
 
         return $this;
     }
 
     public function format(): string
     {
-        $parts = ["FREQ={$this->frequency->format()}"];
+        $parts = ["FREQ={$this->frequency->value}"];
 
         if ($this->until !== null) {
-            $parts[] = "UNTIL={$this->until->format('Ymd\THis\Z')}";
+            $parts[] = "UNTIL={$this->until->setTimezone(new DateTimeZone('UTC'))->format('Ymd\THis\Z')}";
         }
 
         return implode(';', $parts);

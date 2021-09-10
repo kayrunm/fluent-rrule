@@ -9,5 +9,15 @@
     },
     "require": {
         "php": "^8.1"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.98",
+        "vimeo/psalm": "^4.10"
+    },
+    "scripts": {
+        "check": [
+            "phpstan",
+            "psalm"
+        ]
     }
 }

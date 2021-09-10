@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to an undefined property Kayrunm\\\\FluentRrule\\\\Frequency\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/Schedule.php
+

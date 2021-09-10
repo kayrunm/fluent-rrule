@@ -13,16 +13,19 @@
     "require-dev": {
         "phpstan/phpstan": "^0.12.98",
         "vimeo/psalm": "^4.10",
-        "friendsofphp/php-cs-fixer": "^3.1"
+        "friendsofphp/php-cs-fixer": "^3.1",
+        "phpunit/phpunit": "^9.5"
     },
     "scripts": {
         "phpstan": "phpstan",
         "psalm": "psalm",
+        "phpunit": "phpunit",
         "cs": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --dry-run --diff",
         "cs-fix": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix",
         "check": [
             "@phpstan",
             "@psalm",
+            "@phpunit",
             "@cs"
         ]
     }

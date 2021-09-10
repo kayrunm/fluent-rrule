@@ -265,8 +265,11 @@ final class Schedule
     {
         $parts = [
             "FREQ={$this->frequency->value}",
-            "INTERVAL={$this->interval}", // todo should we leave this out if it is 1 (default)?
         ];
+
+        if ($this->interval !== 1) {
+            $parts[] = "INTERVAL={$this->interval}";
+        }
 
         if ($this->until !== null) {
             $parts[] = "UNTIL={$this->until->setTimezone(new DateTimeZone('UTC'))->format('Ymd\THis\Z')}";

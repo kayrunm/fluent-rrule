@@ -14,6 +14,8 @@ final class Schedule
     /** @var positive-int */
     private int $interval;
     private ?DateTimeImmutable $until = null;
+    /** @var positive-int|null */
+    private ?int $times = null;
 
     /**
      * @param positive-int $interval
@@ -115,10 +117,23 @@ final class Schedule
         return new self(Frequency::YEARLY, $n);
     }
 
-    /** @return $this */
+    /**
+     * @return $this
+     */
     public function until(DateTimeInterface $until): self
     {
         $this->until = DateTimeImmutable::createFromInterface($until);
+
+        return $this;
+    }
+
+    /**
+     * @param positive-int $times
+     * @return $this
+     */
+    public function times(int $times): self
+    {
+        $this->times = $times;
 
         return $this;
     }
@@ -132,6 +147,10 @@ final class Schedule
 
         if ($this->until !== null) {
             $parts[] = "UNTIL={$this->until->setTimezone(new DateTimeZone('UTC'))->format('Ymd\THis\Z')}";
+        }
+
+        if ($this->times !== null) {
+            $parts[] = "COUNT={$this->times}";
         }
 
         return implode(';', $parts);

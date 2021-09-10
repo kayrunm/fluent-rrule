@@ -13,6 +13,7 @@ final class Schedule
     private Frequency $frequency;
     /** @var positive-int */
     private int $interval;
+    private ?DateTimeImmutable $from = null;
     private ?DateTimeImmutable $until = null;
     /** @var positive-int|null */
     private ?int $times = null;
@@ -160,6 +161,16 @@ final class Schedule
     public function onHours(int ...$hours): self
     {
         $this->onHours = $hours;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function from(DateTimeInterface $from): self
+    {
+        $this->from = DateTimeImmutable::createFromInterface($from);
 
         return $this;
     }

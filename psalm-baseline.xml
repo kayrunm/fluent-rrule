@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
   <file src="src/Schedule.php">
-    <UndefinedPropertyFetch occurrences="1">
+    <MixedInferredReturnType occurrences="1">
+      <code>string</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$day-&gt;value</code>
+    </MixedReturnStatement>
+    <UndefinedPropertyFetch occurrences="4">
+      <code>$day-&gt;value</code>
+      <code>$month-&gt;value</code>
       <code>$this-&gt;frequency-&gt;value</code>
+      <code>$this-&gt;weekStartDay-&gt;value</code>
     </UndefinedPropertyFetch>
   </file>
 </files>

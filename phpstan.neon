@@ -4,5 +4,5 @@ parameters:
 		- src
 	ignoreErrors:
 		# PHP 8.1 compatibility
-		- "#^Access to an undefined property Kayrunm\\\\FluentRrule\\\\Frequency\\:\\:\\$value\\.$#"
-		- "#^Access to undefined constant Kayrunm\\\\FluentRrule\\\\Frequency\\:\\:(.*)\\.$#"
+		- "#^Access to an undefined property Kayrunm\\\\FluentRrule\\\\(.*)\\:\\:\\$value\\.$#"
+		- "#^Access to undefined constant Kayrunm\\\\FluentRrule\\\\(.*)\\:\\:(.*)\\.$#"

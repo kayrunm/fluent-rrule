@@ -23,6 +23,17 @@ final class Schedule
     private array $onMinutes = [];
     /** @var array<array-key, int<0, 23>> */
     private array $onHours = [];
+    /** @var array<array-key, Day> */
+    private array $onDays = [];
+    /** @var array<array-key, int<1, 31>> */
+    private array $onMonthDays = [];
+    /** @var array<array-key, int<1, 366>> */
+    private array $onYearDays = [];
+    /** @var array<array-key, int<1, 53>> */
+    private array $onWeeks = [];
+    /** @var array<array-key, Month> */
+    private array $onMonths = [];
+    private ?Day $weekStartDay = null;
 
     /**
      * @param positive-int $interval
@@ -243,6 +254,64 @@ final class Schedule
     /**
      * @return $this
      */
+    public function onDays(Day ...$days): self
+    {
+        // todo: support ordinals
+        $this->onDays = $days;
+
+        return $this;
+    }
+
+    /**
+     * @param int<1, 31> ...$monthDays
+     * @return $this
+     */
+    public function onMonthDays(int ...$monthDays): self
+    {
+        // todo: support ordinals
+        $this->onMonthDays = $monthDays;
+
+        return $this;
+    }
+
+    /**
+     * @param int<1, 366> ...$yearDays
+     * @return $this
+     */
+    public function onYearDays(int ...$yearDays): self
+    {
+        // todo: support ordinals
+        $this->onYearDays = $yearDays;
+
+        return $this;
+    }
+
+    /**
+     * @param int<1, 53> ...$weeks
+     * @return $this
+     */
+    public function onWeeks(int ...$weeks): self
+    {
+        // todo: support ordinals
+        $this->onWeeks = $weeks;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function onMonths(Month ...$months): self
+    {
+        // todo: support ordinals
+        $this->onMonths = $months;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function until(DateTimeInterface $until): self
     {
         $this->until = DateTimeImmutable::createFromInterface($until);
@@ -257,6 +326,16 @@ final class Schedule
     public function times(int $times): self
     {
         $this->times = $times;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function givenWeeksStartOn(Day $day): self
+    {
+        $this->weekStartDay = $day;
 
         return $this;
     }
@@ -291,6 +370,35 @@ final class Schedule
             $parts[] = 'BYHOUR=' . implode(',', $this->onHours);
         }
 
+        if ($this->onDays !== []) {
+            $parts[] = 'BYDAY=' . implode(',', array_map(fn (Day $day): string => $day->value, $this->onDays));
+        }
+
+        if ($this->onMonthDays !== []) {
+            $parts[] = 'BYMONTHDAY=' . implode(',', $this->onMonthDays);
+        }
+
+        if ($this->onYearDays !== []) {
+            $parts[] = 'BYYEARDAY=' . implode(',', $this->onYearDays);
+        }
+
+        if ($this->onWeeks !== []) {
+            $parts[] = 'BYWEEKNO=' . implode(',', $this->onWeeks);
+        }
+
+        if ($this->onMonths !== []) {
+            $parts[] = 'BYMONTH=' . implode(',', array_map(fn (Month $month): string => (string) $month->value, $this->onMonths));
+        }
+
+        if ($this->weekStartDay !== null) {
+            $parts[] = "WKST={$this->weekStartDay->value}";
+        }
+
         return implode(';', $parts);
+    }
+
+    public function __toString(): string
+    {
+        return $this->format();
     }
 }

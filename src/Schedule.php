@@ -20,7 +20,7 @@ final class Schedule
     /**
      * @param positive-int $interval
      */
-    public function __construct(Frequency $frequency, int $interval = 1)
+    private function __construct(Frequency $frequency, int $interval = 1)
     {
         $this->frequency = $frequency;
         $this->interval = $interval;
@@ -115,6 +115,14 @@ final class Schedule
     public function everyNthYear(int $n): self
     {
         return new self(Frequency::YEARLY, $n);
+    }
+
+    /**
+     * @param positive-int $n
+     */
+    public static function everyNth(Frequency $frequency, int $n): self
+    {
+        return new self($frequency, $n);
     }
 
     /**

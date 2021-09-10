@@ -15,9 +15,11 @@
         "vimeo/psalm": "^4.10"
     },
     "scripts": {
+        "phpstan": "phpstan",
+        "psalm": "psalm",
         "check": [
-            "phpstan",
-            "psalm"
+            "@phpstan",
+            "@psalm"
         ]
     }
 }

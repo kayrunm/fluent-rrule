@@ -16,8 +16,12 @@ final class Schedule
     private ?DateTimeImmutable $until = null;
     /** @var positive-int|null */
     private ?int $times = null;
-    /** @var list<int<0, 60>> */
+    /** @var array<array-key, int<0, 60>> */
     private array $onSeconds = [];
+    /** @var array<array-key, int<0, 59>> */
+    private array $onMinutes = [];
+    /** @var array<array-key, int<0, 23>> */
+    private array $onHours = [];
 
     /**
      * @param positive-int $interval
@@ -133,7 +137,29 @@ final class Schedule
      */
     public function onSeconds(int ...$seconds): self
     {
-        $this->onSeconds = array_values($seconds);
+        $this->onSeconds = $seconds;
+
+        return $this;
+    }
+
+    /**
+     * @param int<0, 59> ...$minutes
+     * @return $this
+     */
+    public function onMinutes(int ...$minutes): self
+    {
+        $this->onMinutes = $minutes;
+
+        return $this;
+    }
+
+    /**
+     * @param int<0, 23> ...$hours
+     * @return $this
+     */
+    public function onHours(int ...$hours): self
+    {
+        $this->onHours = $hours;
 
         return $this;
     }
@@ -176,6 +202,14 @@ final class Schedule
 
         if ($this->onSeconds !== []) {
             $parts[] = 'BYSECOND=' . implode(',', $this->onSeconds);
+        }
+
+        if ($this->onMinutes !== []) {
+            $parts[] = 'BYMINUTE=' . implode(',', $this->onMinutes);
+        }
+
+        if ($this->onHours !== []) {
+            $parts[] = 'BYHOUR=' . implode(',', $this->onHours);
         }
 
         return implode(';', $parts);

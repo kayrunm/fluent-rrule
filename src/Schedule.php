@@ -70,7 +70,7 @@ final class Schedule
 
     public static function everyHour(): self
     {
-        return self::everyHour();
+        return self::hourly();
     }
 
     public static function everyOtherHour(): self
@@ -162,7 +162,7 @@ final class Schedule
     /**
      * @param positive-int $n
      */
-    public function everyNthHour(int $n): self
+    public static function everyNthHour(int $n): self
     {
         return new self(Frequency::HOURLY, $n);
     }
@@ -170,7 +170,7 @@ final class Schedule
     /**
      * @param positive-int $n
      */
-    public function everyNthDay(int $n): self
+    public static function everyNthDay(int $n): self
     {
         return new self(Frequency::DAILY, $n);
     }
@@ -178,7 +178,7 @@ final class Schedule
     /**
      * @param positive-int $n
      */
-    public function everyNthWeek(int $n): self
+    public static function everyNthWeek(int $n): self
     {
         return new self(Frequency::WEEKLY, $n);
     }
@@ -186,7 +186,7 @@ final class Schedule
     /**
      * @param positive-int $n
      */
-    public function everyNthMonth(int $n): self
+    public static function everyNthMonth(int $n): self
     {
         return new self(Frequency::MONTHLY, $n);
     }
@@ -194,7 +194,7 @@ final class Schedule
     /**
      * @param positive-int $n
      */
-    public function everyNthYear(int $n): self
+    public static function everyNthYear(int $n): self
     {
         return new self(Frequency::YEARLY, $n);
     }

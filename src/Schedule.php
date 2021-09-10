@@ -261,6 +261,14 @@ final class Schedule
     }
 
     /**
+     * @return $this
+     */
+    public function between(DateTimeInterface $from, DateTimeInterface $until): self
+    {
+        return $this->from($from)->until($until);
+    }
+
+    /**
      * @param positive-int $times
      * @return $this
      */

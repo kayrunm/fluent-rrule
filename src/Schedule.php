@@ -11,9 +11,13 @@ use DateTimeZone;
 final class Schedule
 {
     private Frequency $frequency;
+    /** @var positive-int */
     private int $interval;
     private ?DateTimeImmutable $until = null;
 
+    /**
+     * @param positive-int $interval
+     */
     public function __construct(Frequency $frequency, int $interval = 1)
     {
         $this->frequency = $frequency;
@@ -55,36 +59,57 @@ final class Schedule
         return new self(Frequency::YEARLY);
     }
 
+    /**
+     * @param positive-int $n
+     */
     public static function everyNthSecond(int $n): self
     {
         return new self(Frequency::SECONDLY, $n);
     }
 
+    /**
+     * @param positive-int $n
+     */
     public static function everyNthMinute(int $n): self
     {
         return new self(Frequency::MINUTELY, $n);
     }
 
+    /**
+     * @param positive-int $n
+     */
     public function everyNthHour(int $n): self
     {
         return new self(Frequency::HOURLY, $n);
     }
 
+    /**
+     * @param positive-int $n
+     */
     public function everyNthDay(int $n): self
     {
         return new self(Frequency::DAILY, $n);
     }
 
+    /**
+     * @param positive-int $n
+     */
     public function everyNthWeek(int $n): self
     {
         return new self(Frequency::WEEKLY, $n);
     }
 
+    /**
+     * @param positive-int $n
+     */
     public function everyNthMonth(int $n): self
     {
         return new self(Frequency::MONTHLY, $n);
     }
 
+    /**
+     * @param positive-int $n
+     */
     public function everyNthYear(int $n): self
     {
         return new self(Frequency::YEARLY, $n);

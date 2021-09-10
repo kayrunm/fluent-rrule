@@ -243,29 +243,11 @@ final class Schedule
     /**
      * @return $this
      */
-    public function from(DateTimeInterface $from): self
-    {
-        $this->from = DateTimeImmutable::createFromInterface($from);
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
     public function until(DateTimeInterface $until): self
     {
         $this->until = DateTimeImmutable::createFromInterface($until);
 
         return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function between(DateTimeInterface $from, DateTimeInterface $until): self
-    {
-        return $this->from($from)->until($until);
     }
 
     /**

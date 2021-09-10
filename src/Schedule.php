@@ -16,6 +16,8 @@ final class Schedule
     private ?DateTimeImmutable $until = null;
     /** @var positive-int|null */
     private ?int $times = null;
+    /** @var list<int<0, 60>> */
+    private array $onSeconds = [];
 
     /**
      * @param positive-int $interval
@@ -126,6 +128,17 @@ final class Schedule
     }
 
     /**
+     * @param int<0, 60> ...$seconds
+     * @return $this
+     */
+    public function onSeconds(int ...$seconds): self
+    {
+        $this->onSeconds = array_values($seconds);
+
+        return $this;
+    }
+
+    /**
      * @return $this
      */
     public function until(DateTimeInterface $until): self
@@ -159,6 +172,10 @@ final class Schedule
 
         if ($this->times !== null) {
             $parts[] = "COUNT={$this->times}";
+        }
+
+        if ($this->onSeconds !== []) {
+            $parts[] = 'BYSECOND=' . implode(',', $this->onSeconds);
         }
 
         return implode(';', $parts);

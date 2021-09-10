@@ -38,9 +38,19 @@ final class Schedule
         return new self(Frequency::SECONDLY);
     }
 
+    public static function everySecond(): self
+    {
+        return self::secondly();
+    }
+
     public static function minutely(): self
     {
         return new self(Frequency::MINUTELY);
+    }
+
+    public static function everyMinute(): self
+    {
+        return self::minutely();
     }
 
     public static function hourly(): self
@@ -48,9 +58,19 @@ final class Schedule
         return new self(Frequency::HOURLY);
     }
 
+    public static function everyHour(): self
+    {
+        return self::everyHour();
+    }
+
     public static function daily(): self
     {
         return new self(Frequency::DAILY);
+    }
+
+    public static function everyDay(): self
+    {
+        return self::daily();
     }
 
     public static function weekly(): self
@@ -58,14 +78,34 @@ final class Schedule
         return new self(Frequency::WEEKLY);
     }
 
+    public static function everyWeek(): self
+    {
+        return self::weekly();
+    }
+
     public static function monthly(): self
     {
         return new self(Frequency::MONTHLY);
     }
 
+    public static function everyMonth(): self
+    {
+        return self::monthly();
+    }
+
     public static function yearly(): self
     {
         return new self(Frequency::YEARLY);
+    }
+
+    public static function everyYear(): self
+    {
+        return self::yearly();
+    }
+
+    public static function every(Frequency $frequency): self
+    {
+        return new self($frequency);
     }
 
     /**
